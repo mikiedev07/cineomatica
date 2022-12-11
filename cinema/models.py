@@ -1,4 +1,5 @@
 from django.db import models
+#from users.models import User
 
 
 class Cinema(models.Model):
@@ -64,4 +65,7 @@ class SeatReserved(models.Model):
 	screening_id = models.ForeignKey(Screening, on_delete=models.CASCADE)
 
 
-
+class Ticket(models.Model):
+	reservation_id = models.ForeignKey(Reservation, on_delete=models.CASCADE)
+	seats = models.ForeignKey(SeatReserved, on_delete=models.CASCADE)
+	client_id = models.ForeignKey('users.User', on_delete=models.CASCADE)

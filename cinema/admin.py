@@ -10,7 +10,8 @@ from .models import (
     Reservation,
     ReservationType,
     Movie,
-    Genre
+    Genre,
+    Ticket,
 )
 
 admin.site.register(Cinema)
@@ -23,3 +24,4 @@ admin.site.register(Reservation)
 admin.site.register(ReservationType)
 admin.site.register(Movie)
 admin.site.register(Genre)
+admin.site.register(Ticket)
