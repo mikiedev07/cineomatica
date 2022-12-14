@@ -4,7 +4,7 @@ from .models import (
     Cinema,
     Auditorium,
     Seat,
-    SeatReserved,
+    SeatToReserve,
     Screening,
     ScreeningPrice,
     Reservation,
@@ -17,7 +17,7 @@ from .models import (
 admin.site.register(Cinema)
 admin.site.register(Auditorium)
 admin.site.register(Seat)
-admin.site.register(SeatReserved)
+admin.site.register(SeatToReserve)
 admin.site.register(Screening)
 admin.site.register(ScreeningPrice)
 admin.site.register(Reservation)

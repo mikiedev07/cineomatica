@@ -1,5 +1,4 @@
 from django.db import models
-#from users.models import User
 
 
 class Cinema(models.Model):
@@ -17,6 +16,9 @@ class Seat(models.Model):
 	row = models.IntegerField()
 	number = models.IntegerField()
 	auditorium_id = models.ForeignKey(Auditorium, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return f"Row {self.row}, number {self.number}"
 
 
 class Genre(models.Model):
@@ -59,13 +61,16 @@ class Reservation(models.Model):
 	active = models.BooleanField()
 
 
-class SeatReserved(models.Model):
+class SeatToReserve(models.Model):
 	seat_id = models.ForeignKey(Seat, on_delete=models.CASCADE)
 	reservation_id = models.ForeignKey(Reservation, on_delete=models.CASCADE)
 	screening_id = models.ForeignKey(Screening, on_delete=models.CASCADE)
+	reserved = models.BooleanField(default=False)
 
 
 class Ticket(models.Model):
-	reservation_id = models.ForeignKey(Reservation, on_delete=models.CASCADE)
-	seats = models.ForeignKey(SeatReserved, on_delete=models.CASCADE)
-	client_id = models.ForeignKey('users.User', on_delete=models.CASCADE)
+	reservation_id = models.ForeignKey(Reservation, on_delete=models.CASCADE, default=None)
+	screening_id = models.ForeignKey(Screening, on_delete=models.CASCADE, default=None)
+	seats = models.ManyToManyField(SeatToReserve)
+	client_id = models.ForeignKey('users.User', on_delete=models.CASCADE, default=None)
+	reservation_type = models.CharField(max_length=5, default="adult")

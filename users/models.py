@@ -37,6 +37,7 @@ class User(AbstractUser):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     phone_number = models.CharField(max_length=15)
+    discount = models.IntegerField(default=0)
 
     objects = UserManager()
 

@@ -24,7 +24,7 @@ class UserSerializer(ModelSerializer):
 class FeedbackSerializer(ModelSerializer):
     class Meta:
         model = FeedBack
-        fields = '__all__'
+        fields = "__all__"
 
 
 class TransactionSerializer(ModelSerializer):

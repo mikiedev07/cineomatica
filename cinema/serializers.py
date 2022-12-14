@@ -1,4 +1,5 @@
 from rest_framework.serializers import ModelSerializer
+from rest_framework.exceptions import APIException
 from .models import (
     Cinema,
     Auditorium,
@@ -9,7 +10,7 @@ from .models import (
     ScreeningPrice,
     Screening,
     Reservation,
-    SeatReserved,
+    SeatToReserve,
     Ticket,
 )
 
@@ -68,9 +69,9 @@ class ReservationSerializer(ModelSerializer):
         fields = '__all__'
 
 
-class SeatReservedSerializer(ModelSerializer):
+class SeatToReserveSerializer(ModelSerializer):
     class Meta:
-        model = SeatReserved
+        model = SeatToReserve
         fields = '__all__'
 
 
@@ -78,3 +79,39 @@ class TicketSerializer(ModelSerializer):
     class Meta:
         model = Ticket
         fields = '__all__'
+
+    def create(self, validated_data):
+        print(validated_data)
+        # reservation_type_id = ReservationType.objects.get(
+        #     name=validated_data["reservation_type"]
+        # ).id
+        #
+        # res = Reservation.objects.create(
+        #     screening_id=validated_data["screening_id"],
+        #     reservation_type=reservation_type_id,
+        #     paid=False,
+        #     active=True
+        # )
+        # t = Ticket.objects.create(
+        #     reservation_id=res.id,
+        #     screening_id=validated_data["screening_id"],
+        #     client_id=self.context.get('request', None).user
+        # )
+        #
+        # for seat in validated_data["seats"]:
+        #     print(seat)
+        #     if seat.reserved:
+        #         self.set_reserved_exception(seat.seat_id)
+        #     else:
+        #         s = SeatToReserve.objects.create(
+        #             seat_id=seat.id,
+        #             reservation_id=res.id,
+        #             screening_id=validated_data["screening_id"],
+        #             reserved=True
+        #         )
+        #         t.seats.add(s)
+        #
+        # t.save()
+
+    def set_reserved_exception(self, seat):
+        raise APIException(f"Seat {seat} already reserved!")
