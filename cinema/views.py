@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticatedOrReadOnly, IsAuthenticated
 
 from .models import (
     Cinema,
@@ -35,6 +35,14 @@ class CinemaViewSet(ModelViewSet):
     queryset = Cinema.objects.all()
     permission_classes = [AllowAny]
 
+    def get_permissions(self):
+        """Set custom permissions for each action."""
+        if self.action in ['update', 'partial_update', 'destroy', 'create']:
+            self.permission_classes = [IsAdminUser, ]
+        elif self.action in ['list', ]:
+            self.permission_classes = [AllowAny, ]
+        return super().get_permissions()
+
 
 class AuditoriumViewSet(ModelViewSet):
     serializer_class = AuditoriumSerializer
@@ -47,6 +55,14 @@ class SeatViewSet(ModelViewSet):
     queryset = Seat.objects.all()
     permission_classes = [AllowAny]
 
+    def get_permissions(self):
+        """Set custom permissions for each action."""
+        if self.action in ['update', 'partial_update', 'destroy', 'create']:
+            self.permission_classes = [IsAdminUser, ]
+        elif self.action in ['list', ]:
+            self.permission_classes = [IsAuthenticated, ]
+        return super().get_permissions()
+
 
 class GenreViewSet(ModelViewSet):
     serializer_class = GenreSerializer
@@ -57,7 +73,7 @@ class GenreViewSet(ModelViewSet):
 class MovieViewSet(ModelViewSet):
     serializer_class = MovieSerializer
     queryset = Movie.objects.all()
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminUser]
 
 
 class ReservationTypeViewSet(ModelViewSet):
@@ -75,7 +91,14 @@ class ScreeningPriceViewSet(ModelViewSet):
 class ScreeningViewSet(ModelViewSet):
     serializer_class = ScreeningSerializer
     queryset = Screening.objects.all()
-    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get_permissions(self):
+        """Set custom permissions for each action."""
+        if self.action in ['update', 'partial_update', 'destroy', 'create']:
+            self.permission_classes = [IsAdminUser, ]
+        elif self.action in ['list', ]:
+            self.permission_classes = [AllowAny, ]
+        return super().get_permissions()
 
 
 class ReservationViewSet(ModelViewSet):
@@ -93,3 +116,11 @@ class SeatToReserveViewSet(ModelViewSet):
 class TicketViewSet(ModelViewSet):
     serializer_class = TicketSerializer
     queryset = Ticket.objects.all()
+
+    def get_permissions(self):
+        """Set custom permissions for each action."""
+        if self.action in ['update', 'partial_update', 'destroy', 'list']:
+            self.permission_classes = [IsAdminUser, ]
+        elif self.action in ['create', ]:
+            self.permission_classes = [IsAuthenticated, ]
+        return super().get_permissions()

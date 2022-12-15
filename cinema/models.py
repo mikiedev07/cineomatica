@@ -63,7 +63,6 @@ class Reservation(models.Model):
 
 class SeatToReserve(models.Model):
 	seat_id = models.ForeignKey(Seat, on_delete=models.CASCADE)
-	reservation_id = models.ForeignKey(Reservation, on_delete=models.CASCADE)
 	screening_id = models.ForeignKey(Screening, on_delete=models.CASCADE)
 	reserved = models.BooleanField(default=False)
 
