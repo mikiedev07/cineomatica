@@ -33,7 +33,6 @@ from .serializers import (
 class CinemaViewSet(ModelViewSet):
     serializer_class = CinemaSerializer
     queryset = Cinema.objects.all()
-    permission_classes = [AllowAny]
 
     def get_permissions(self):
         """Set custom permissions for each action."""
@@ -53,7 +52,6 @@ class AuditoriumViewSet(ModelViewSet):
 class SeatViewSet(ModelViewSet):
     serializer_class = SeatSerializer
     queryset = Seat.objects.all()
-    permission_classes = [AllowAny]
 
     def get_permissions(self):
         """Set custom permissions for each action."""

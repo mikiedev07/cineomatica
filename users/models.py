@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from cinema.models import Reservation, Screening
+from django.utils import timezone
 
 
 class UserManager(BaseUserManager):
@@ -51,11 +52,11 @@ class User(AbstractUser):
 
 class Transaction(models.Model):
     reservation_id = models.ForeignKey(Reservation, on_delete=models.CASCADE)
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    created_at = models.DateTimeField(default=timezone.now)
     client = models.ForeignKey(User, on_delete=models.CASCADE)
     total = models.FloatField()
     discount = models.IntegerField()
+    #movie_name = models.CharField(max_length=50, default='')
 
 
 class FeedBack(models.Model):

@@ -13,6 +13,7 @@ from .models import (
     SeatToReserve,
     Ticket,
 )
+from users.models import Transaction
 
 
 class CinemaSerializer(ModelSerializer):
@@ -99,33 +100,48 @@ class TicketSerializer(ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        print(validated_data)
-        reservation_type = ReservationType.objects.get(
+        user = self.context.get('request', None).user
+
+        r_type = ReservationType.objects.get(
             name=validated_data["reservation_type"]
         )
 
         res = Reservation.objects.create(
             screening_id=validated_data["screening_id"],
-            reservation_type=reservation_type,
+            reservation_type=r_type,
             paid=False,
             active=True
         )
+
         t = Ticket.objects.create(
             reservation_id=res,
             screening_id=validated_data["screening_id"],
-            client_id=self.context.get('request', None).user
+            client_id=user
         )
 
-        user = self.context.get('request', None).user
+        sp = ScreeningPrice.objects.get(reservation_type=r_type)
+        no_disc_price = sp.price * len(validated_data['seats'])
+
+        tr = Transaction.objects.create(
+            reservation_id=res,
+            client=user,
+            total=no_disc_price - no_disc_price * user.discount / 100,
+            discount=user.discount
+        )
+
         if user.has_card:
             user.discount += 3
+        user.save()
 
         for seat in validated_data["seats"]:
-            print(seat)
-            if seat.reserved:
+            if seat.reserved is True:
                 self.set_reserved_exception(seat)
+                t.delete()
+                return None
             else:
                 t.seats.add(seat)
+                seat.reserved = True
+                seat.save()
 
         t.save()
         return t

@@ -10,6 +10,7 @@ from .views import (
     FeedbackViewSet,
     TransactionViewSet,
 )
+from .views import HistoryView
 
 app_name = "users"
 
@@ -19,8 +20,10 @@ router.register('feedbacks', FeedbackViewSet)
 router.register('transactions', TransactionViewSet)
 
 urlpatterns = [
-    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('login/', TokenObtainPairView.as_view(), name='login'),
+    path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('history/', HistoryView.as_view(), name='user_purchases')
 ]
 
 urlpatterns += router.urls
+

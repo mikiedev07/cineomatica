@@ -1,9 +1,10 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, ListSerializer
 from .models import (
     User,
     FeedBack,
     Transaction,
 )
+from cinema.serializers import ReservationSerializer
 
 
 class UserSerializer(ModelSerializer):
@@ -31,3 +32,16 @@ class TransactionSerializer(ModelSerializer):
     class Meta:
         model = Transaction
         fields = '__all__'
+
+
+class HistorySerializer(ModelSerializer):
+    reservation_id = ReservationSerializer(read_only=True)
+
+    class Meta:
+        model = Transaction
+        fields = ('created_at', 'discount', 'total', 'reservation_id')
+
+# {
+#     "start_after": "2022-12-01 10:10:10",
+#     "end_before": "2022-12-24 10:10:10"
+# }
