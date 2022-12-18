@@ -6,17 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cinema', '0004_seattoreserve_alter_ticket_seats_delete_seatreserved'),
+        ("cinema", "0004_seattoreserve_alter_ticket_seats_delete_seatreserved"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='ticket',
-            name='seats',
+            model_name="ticket",
+            name="seats",
         ),
         migrations.AddField(
-            model_name='ticket',
-            name='seats',
-            field=models.ManyToManyField(to='cinema.seattoreserve'),
+            model_name="ticket",
+            name="seats",
+            field=models.ManyToManyField(to="cinema.seattoreserve"),
         ),
     ]

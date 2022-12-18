@@ -15,13 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework_swagger.views import get_swagger_view
+from django.views.generic import TemplateView
+from rest_framework.schemas import get_schema_view
 
-schema_view = get_swagger_view(title='API')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/users/', include('users.urls')),
-    path('api/cinema/', include('cinema.urls')),
-    path('', schema_view)
+    path("admin/", admin.site.urls),
+    path("api/users/", include("users.urls")),
+    path("api/cinema/", include("cinema.urls")),
+    path(
+        "api/schema",
+        get_schema_view(title="API Schema", description="Guide fro the REST API"),
+        name="api_schema",
+    ),
+    path(
+        "",
+        TemplateView.as_view(
+            template_name="docs.html", extra_context={"schema_url": "api_schema"}
+        ),
+        name="swagger-ui",
+    ),
 ]

@@ -7,26 +7,53 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cinema', '0003_ticket'),
+        ("cinema", "0003_ticket"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='SeatToReserve',
+            name="SeatToReserve",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('reserved', models.BooleanField(default=False)),
-                ('reservation_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cinema.reservation')),
-                ('screening_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cinema.screening')),
-                ('seat_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cinema.seat')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("reserved", models.BooleanField(default=False)),
+                (
+                    "reservation_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="cinema.reservation",
+                    ),
+                ),
+                (
+                    "screening_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="cinema.screening",
+                    ),
+                ),
+                (
+                    "seat_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="cinema.seat"
+                    ),
+                ),
             ],
         ),
         migrations.AlterField(
-            model_name='ticket',
-            name='seats',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cinema.seattoreserve'),
+            model_name="ticket",
+            name="seats",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="cinema.seattoreserve"
+            ),
         ),
         migrations.DeleteModel(
-            name='SeatReserved',
+            name="SeatReserved",
         ),
     ]

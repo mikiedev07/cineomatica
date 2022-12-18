@@ -9,17 +9,43 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('cinema', '0002_auditorium_genre_movie_reservation_reservationtype_and_more'),
+        ("cinema", "0002_auditorium_genre_movie_reservation_reservationtype_and_more"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Ticket',
+            name="Ticket",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('client_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('reservation_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cinema.reservation')),
-                ('seats', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cinema.seatreserved')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "client_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "reservation_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="cinema.reservation",
+                    ),
+                ),
+                (
+                    "seats",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="cinema.seatreserved",
+                    ),
+                ),
             ],
         ),
     ]

@@ -7,118 +7,248 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cinema', '0001_initial'),
+        ("cinema", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Auditorium',
+            name="Auditorium",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.TextField(max_length=30)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.TextField(max_length=30)),
             ],
         ),
         migrations.CreateModel(
-            name='Genre',
+            name="Genre",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50)),
             ],
         ),
         migrations.CreateModel(
-            name='Movie',
+            name="Movie",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
-                ('release_date', models.DateField()),
-                ('age_limit', models.IntegerField()),
-                ('rental_start', models.DateField()),
-                ('rental_end', models.DateField()),
-                ('duration_min', models.IntegerField()),
-                ('rating', models.FloatField()),
-                ('description', models.CharField(max_length=300)),
-                ('genre', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cinema.genre')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50)),
+                ("release_date", models.DateField()),
+                ("age_limit", models.IntegerField()),
+                ("rental_start", models.DateField()),
+                ("rental_end", models.DateField()),
+                ("duration_min", models.IntegerField()),
+                ("rating", models.FloatField()),
+                ("description", models.CharField(max_length=300)),
+                (
+                    "genre",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="cinema.genre"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Reservation',
+            name="Reservation",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('paid', models.BooleanField()),
-                ('active', models.BooleanField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("paid", models.BooleanField()),
+                ("active", models.BooleanField()),
             ],
         ),
         migrations.CreateModel(
-            name='ReservationType',
+            name="ReservationType",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=20)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=20)),
             ],
         ),
         migrations.CreateModel(
-            name='Screening',
+            name="Screening",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('start_time', models.DateTimeField()),
-                ('auditorium_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cinema.auditorium')),
-                ('movie_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cinema.movie')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("start_time", models.DateTimeField()),
+                (
+                    "auditorium_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="cinema.auditorium",
+                    ),
+                ),
+                (
+                    "movie_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="cinema.movie"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Seat',
+            name="Seat",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('row', models.IntegerField()),
-                ('number', models.IntegerField()),
-                ('auditorium_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cinema.auditorium')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("row", models.IntegerField()),
+                ("number", models.IntegerField()),
+                (
+                    "auditorium_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="cinema.auditorium",
+                    ),
+                ),
             ],
         ),
         migrations.AlterField(
-            model_name='cinema',
-            name='contacts',
+            model_name="cinema",
+            name="contacts",
             field=models.CharField(max_length=20),
         ),
         migrations.AlterField(
-            model_name='cinema',
-            name='location',
+            model_name="cinema",
+            name="location",
             field=models.CharField(max_length=50),
         ),
         migrations.CreateModel(
-            name='SeatReserved',
+            name="SeatReserved",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('reservation_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cinema.reservation')),
-                ('screening_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cinema.screening')),
-                ('seat_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cinema.seat')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "reservation_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="cinema.reservation",
+                    ),
+                ),
+                (
+                    "screening_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="cinema.screening",
+                    ),
+                ),
+                (
+                    "seat_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="cinema.seat"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='ScreeningPrice',
+            name="ScreeningPrice",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('price', models.FloatField()),
-                ('cinema', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cinema.cinema')),
-                ('reservation_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cinema.reservationtype')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("price", models.FloatField()),
+                (
+                    "cinema",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="cinema.cinema"
+                    ),
+                ),
+                (
+                    "reservation_type",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="cinema.reservationtype",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='screening',
-            name='price',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cinema.screeningprice'),
+            model_name="screening",
+            name="price",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="cinema.screeningprice"
+            ),
         ),
         migrations.AddField(
-            model_name='reservation',
-            name='reservation_type',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cinema.reservationtype'),
+            model_name="reservation",
+            name="reservation_type",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="cinema.reservationtype"
+            ),
         ),
         migrations.AddField(
-            model_name='reservation',
-            name='screening_id',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cinema.screening'),
+            model_name="reservation",
+            name="screening_id",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="cinema.screening"
+            ),
         ),
         migrations.AddField(
-            model_name='auditorium',
-            name='cinema_id',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cinema.cinema'),
+            model_name="auditorium",
+            name="cinema_id",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="cinema.cinema"
+            ),
         ),
     ]

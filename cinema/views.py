@@ -1,5 +1,10 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.permissions import (
+    AllowAny,
+    IsAdminUser,
+    IsAuthenticatedOrReadOnly,
+    IsAuthenticated,
+)
 
 from .models import (
     Cinema,
@@ -36,17 +41,36 @@ class CinemaViewSet(ModelViewSet):
 
     def get_permissions(self):
         """Set custom permissions for each action."""
-        if self.action in ['update', 'partial_update', 'destroy', 'create']:
-            self.permission_classes = [IsAdminUser, ]
-        elif self.action in ['list', ]:
-            self.permission_classes = [AllowAny, ]
+        if self.action in ["update", "partial_update", "destroy", "create"]:
+            self.permission_classes = [
+                IsAdminUser,
+            ]
+        elif self.action in [
+            "list",
+        ]:
+            self.permission_classes = [
+                AllowAny,
+            ]
         return super().get_permissions()
 
 
 class AuditoriumViewSet(ModelViewSet):
     serializer_class = AuditoriumSerializer
     queryset = Auditorium.objects.all()
-    permission_classes = [AllowAny]
+
+    def get_permissions(self):
+        """Set custom permissions for each action."""
+        if self.action in ["update", "partial_update", "destroy", "create"]:
+            self.permission_classes = [
+                IsAdminUser,
+            ]
+        elif self.action in [
+            "list",
+        ]:
+            self.permission_classes = [
+                AllowAny,
+            ]
+        return super().get_permissions()
 
 
 class SeatViewSet(ModelViewSet):
@@ -55,10 +79,16 @@ class SeatViewSet(ModelViewSet):
 
     def get_permissions(self):
         """Set custom permissions for each action."""
-        if self.action in ['update', 'partial_update', 'destroy', 'create']:
-            self.permission_classes = [IsAdminUser, ]
-        elif self.action in ['list', ]:
-            self.permission_classes = [IsAuthenticated, ]
+        if self.action in ["update", "partial_update", "destroy", "create"]:
+            self.permission_classes = [
+                IsAdminUser,
+            ]
+        elif self.action in [
+            "list",
+        ]:
+            self.permission_classes = [
+                IsAuthenticated,
+            ]
         return super().get_permissions()
 
 
@@ -92,10 +122,16 @@ class ScreeningViewSet(ModelViewSet):
 
     def get_permissions(self):
         """Set custom permissions for each action."""
-        if self.action in ['update', 'partial_update', 'destroy', 'create']:
-            self.permission_classes = [IsAdminUser, ]
-        elif self.action in ['list', ]:
-            self.permission_classes = [AllowAny, ]
+        if self.action in ["update", "partial_update", "destroy", "create"]:
+            self.permission_classes = [
+                IsAdminUser,
+            ]
+        elif self.action in [
+            "list",
+        ]:
+            self.permission_classes = [
+                AllowAny,
+            ]
         return super().get_permissions()
 
 
@@ -117,8 +153,14 @@ class TicketViewSet(ModelViewSet):
 
     def get_permissions(self):
         """Set custom permissions for each action."""
-        if self.action in ['update', 'partial_update', 'destroy', 'list']:
-            self.permission_classes = [IsAdminUser, ]
-        elif self.action in ['create', ]:
-            self.permission_classes = [IsAuthenticated, ]
+        if self.action in ["update", "partial_update", "destroy", "list"]:
+            self.permission_classes = [
+                IsAdminUser,
+            ]
+        elif self.action in [
+            "create",
+        ]:
+            self.permission_classes = [
+                IsAuthenticated,
+            ]
         return super().get_permissions()

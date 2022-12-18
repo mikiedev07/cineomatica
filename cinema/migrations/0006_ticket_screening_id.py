@@ -7,13 +7,17 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cinema', '0005_remove_ticket_seats_ticket_seats'),
+        ("cinema", "0005_remove_ticket_seats_ticket_seats"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='ticket',
-            name='screening_id',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, to='cinema.screening'),
+            model_name="ticket",
+            name="screening_id",
+            field=models.ForeignKey(
+                default=None,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="cinema.screening",
+            ),
         ),
     ]

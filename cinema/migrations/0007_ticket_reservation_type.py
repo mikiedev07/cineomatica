@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cinema', '0006_ticket_screening_id'),
+        ("cinema", "0006_ticket_screening_id"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='ticket',
-            name='reservation_type',
-            field=models.CharField(default='adult', max_length=5),
+            model_name="ticket",
+            name="reservation_type",
+            field=models.CharField(default="adult", max_length=5),
         ),
     ]
